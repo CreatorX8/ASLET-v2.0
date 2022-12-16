@@ -28,7 +28,8 @@ public class User {
     @Column(
             name = "name",
             nullable = false,
-            columnDefinition = "TEXT"
+            length = 60,
+            columnDefinition = "varchar(60)"
     )
     private String name;
     @Column(
@@ -46,14 +47,15 @@ public class User {
     @Column(
             name = "username",
             nullable = false,
-            columnDefinition = "TEXT"
+            length = 60,
+            columnDefinition = "varchar(60)"
     )
     private String username;
     @Column(
             name = "role",
             nullable = false,
             length = 8,
-            columnDefinition = "TEXT"
+            columnDefinition = "varchar(8)"
     )
     private String role;
 
