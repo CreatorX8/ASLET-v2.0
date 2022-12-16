@@ -6,16 +6,16 @@ import jakarta.validation.constraints.Size;
 
 public class UserCreateDto {
     @NotEmpty
-    @Size(min = 6, message = "name should be at least 6 characters long")
+    @Size(min = 6, max = 60, message = "name should be between 6 and 60 characters long")
     private String name;
     @NotEmpty
     @Email(message = "invalid email - example: email@example.com")
     private String email;
     @NotEmpty
-    @Size(min = 8, message = "password should be at least 8 characters long")
+    @Size(min = 8, max = 60, message = "password should be between 8 and 60 characters long")
     private String password;
     @NotEmpty
-    @Size(min = 3, message = "username should be at least 3 characters long")
+    @Size(min = 3, max = 60, message = "username should be between 3 and 60 characters long")
     private String username;
     @NotEmpty
     @Size(min = 4, max = 8, message = "role should be between 4 and 8 characters long")
