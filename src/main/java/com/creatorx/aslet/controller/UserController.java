@@ -2,8 +2,8 @@ package com.creatorx.aslet.controller;
 
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
-import com.creatorx.aslet.model.User;
 import com.creatorx.aslet.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserCreateDto newUser) {
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserCreateDto newUser) {
         return new ResponseEntity<>(userService.createUser(newUser), HttpStatus.CREATED);
     }
 
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto updatedUser, @PathVariable Long id) {
+    public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto updatedUser, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateUser(updatedUser, id));
     }
 
