@@ -3,16 +3,18 @@ package com.creatorx.aslet.converter;
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
 import com.creatorx.aslet.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserConverter {
-    public static UserDto userToDto(User user) {
+    public UserDto userToDto(User user) {
         return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole());
     }
 
-    public static List<UserDto> userToDto(List<User> users) {
+    public List<UserDto> userToDto(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();
         for (User user: users) {
             userDtos.add(new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole()));
@@ -20,7 +22,7 @@ public class UserConverter {
         return userDtos;
     }
 
-    public static User userCreateDtoToUser(UserCreateDto userCreateDto) {
+    public User userCreateDtoToUser(UserCreateDto userCreateDto) {
         User user = new User();
         user.setName(userCreateDto.getName());
         user.setEmail(userCreateDto.getEmail());

@@ -16,23 +16,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserConverter userConverter;
+
     public UserDto createUser(UserCreateDto userCreateDto) {
-        User newUser = UserConverter.userCreateDtoToUser(userCreateDto);
+        User newUser = userConverter.userCreateDtoToUser(userCreateDto);
         userRepository.save(newUser);
-        return UserConverter.userToDto(newUser);
+        return userConverter.userToDto(newUser);
     }
 
     public List<UserDto> getAllUsers() {
-        return UserConverter.userToDto(userRepository.findAll());
+        return userConverter.userToDto(userRepository.findAll());
     }
 
     public UserDto getUserById(Long id) {
-        return UserConverter.userToDto(userRepository.findById(id)
+        return userConverter.userToDto(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id)));
     }
 
     public UserDto updateUser(UserDto updatedUser, Long id) {
-        return UserConverter.userToDto(
+        return userConverter.userToDto(
                 userRepository.findById(id)
                 .map(user -> {
                     user.setName(updatedUser.getName());
