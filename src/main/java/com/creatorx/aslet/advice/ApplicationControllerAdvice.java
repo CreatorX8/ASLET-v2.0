@@ -18,6 +18,7 @@ public class ApplicationControllerAdvice {
         exception.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
         });
+        errorMap.put("status", "400");
         return errorMap;
     }
 }
