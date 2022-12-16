@@ -1,9 +1,12 @@
 package com.creatorx.aslet.controller;
 
-import com.creatorx.aslet.exception.UserNotFoundException;
+import com.creatorx.aslet.dto.UserCreateDto;
+import com.creatorx.aslet.dto.UserDto;
 import com.creatorx.aslet.model.User;
-import com.creatorx.aslet.repository.UserRepository;
+import com.creatorx.aslet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,42 +15,31 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class UserController {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping("/user")
-    User newUser(@RequestBody User newUser) {
-        return userRepository.save(newUser);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserCreateDto newUser) {
+        return new ResponseEntity<>(userService.createUser(newUser), HttpStatus.CREATED);
     }
 
     @GetMapping("/users")
-    List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/user/{id}")
-    User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/user/{id}")
-    User updateUser(@RequestBody User newUser, @PathVariable Long id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setName(newUser.getName());
-                    user.setEmail(newUser.getEmail());
-                    user.setUsername(newUser.getUsername());
-                    user.setRole(newUser.getRole());
-                    return userRepository.save(user);
-                }).orElseThrow(() -> new UserNotFoundException(id));
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto updatedUser, @PathVariable Long id) {
+        return ResponseEntity.ok(userService.updateUser(updatedUser, id));
     }
 
     @DeleteMapping("/user/{id}")
-    String deleteUser(@PathVariable Long id) {
-        if (!userRepository.existsById(id)) {
-            throw new UserNotFoundException(id);
-        }
-        userRepository.deleteById(id);
-        return "User with id " + id + " has been deleted successfully!";
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
