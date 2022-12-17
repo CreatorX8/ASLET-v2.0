@@ -2,6 +2,8 @@ package com.creatorx.aslet.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(
         name = "classes"
@@ -24,15 +26,19 @@ public class Class {
     private Long id;
     @Column(
             name = "grade",
+            nullable = false,
             columnDefinition = "int"
     )
     private int grade;
     @Column(
             name = "letter",
+            nullable = false,
             length = 1,
             columnDefinition = "char"
     )
     private char letter;
+    @OneToMany(mappedBy = "studentsClass")
+    private Collection<ClassGroup> classGroups;
 
     public Class() {
     }
