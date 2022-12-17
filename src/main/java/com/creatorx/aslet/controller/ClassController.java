@@ -28,17 +28,17 @@ public class ClassController {
     }
 
     @GetMapping("/class/{id}")
-    public ResponseEntity<ClassDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<ClassDto> getClassById(@PathVariable Long id) {
         return ResponseEntity.ok(classService.getClassById(id));
     }
 
     @PutMapping("/class/{id}")
-    public ResponseEntity<ClassDto> updateUser(@RequestBody @Valid ClassDto updatedClass, @PathVariable Long id) {
+    public ResponseEntity<ClassDto> updateClass(@RequestBody @Valid ClassDto updatedClass, @PathVariable Long id) {
         return ResponseEntity.ok(classService.updateClass(updatedClass, id));
     }
 
     @DeleteMapping("/class/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    public ResponseEntity deleteClass(@PathVariable Long id) {
         classService.deleteClass(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
