@@ -1,11 +1,15 @@
 package com.creatorx.aslet.service;
 
 import com.creatorx.aslet.converter.ClassConverter;
+import com.creatorx.aslet.converter.ClassGroupConverter;
 import com.creatorx.aslet.dto.ClassCreateDto;
 import com.creatorx.aslet.dto.ClassDto;
+import com.creatorx.aslet.dto.ClassGroupCreateDto;
 import com.creatorx.aslet.exception.ClassExistsException;
 import com.creatorx.aslet.exception.ClassNotFoundException;
 import com.creatorx.aslet.model.Class;
+import com.creatorx.aslet.model.ClassGroup;
+import com.creatorx.aslet.repository.ClassGroupRepository;
 import com.creatorx.aslet.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +22,20 @@ public class ClassService {
     private ClassRepository classRepository;
 
     @Autowired
+    private ClassGroupRepository classGroupRepository;
+
+    @Autowired
     private ClassConverter classConverter;
 
     public ClassDto createClass(ClassCreateDto classCreateDto) {
         if (classRepository.findByGradeAndLetter(classCreateDto.getGrade(), classCreateDto.getLetter()).size() > 0) throw new ClassExistsException();
         Class newClass = classConverter.classCreateDtoToClass(classCreateDto);
         classRepository.save(newClass);
+        ClassGroup classGroup = new ClassGroup();
+        classGroup.setName(newClass.getClassName());
+        classGroup.setStudentsClass(newClass);
+        classGroup.setPeopleCount(classCreateDto.getPeopleCount());
+        classGroupRepository.save(classGroup);
         return classConverter.classToDto(newClass);
     }
 

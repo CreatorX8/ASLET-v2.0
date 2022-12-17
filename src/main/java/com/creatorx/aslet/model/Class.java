@@ -37,7 +37,7 @@ public class Class {
             columnDefinition = "char"
     )
     private char letter;
-    @OneToMany(mappedBy = "studentsClass")
+    @OneToMany(mappedBy = "studentsClass", cascade = CascadeType.ALL)
     private Collection<ClassGroup> classGroups;
 
     public Class() {
@@ -65,5 +65,9 @@ public class Class {
 
     public void setLetter(char letter) {
         this.letter = letter;
+    }
+
+    public String getClassName() {
+        return "" + grade + letter;
     }
 }

@@ -9,6 +9,10 @@ public class ClassCreateDto {
     private int grade;
     @NotNull
     private char letter;
+    @NotNull
+    @Min(value = 1, message = "min people count is 1")
+    @Max(value = 1000, message = "max people count is 1000")
+    private int peopleCount;
 
     public int getGrade() {
         return grade;
@@ -24,5 +28,13 @@ public class ClassCreateDto {
 
     public void setLetter(char letter) {
         this.letter = letter;
+    }
+
+    public int getPeopleCount() {
+        return peopleCount;
+    }
+
+    public void setPeopleCount(int peopleCount) {
+        this.peopleCount = peopleCount;
     }
 }
