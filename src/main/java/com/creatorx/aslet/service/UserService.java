@@ -37,6 +37,7 @@ public class UserService {
     }
 
     public UserDto updateUser(UserDto updatedUser, Long id) {
+        if (userRepository.findByEmail(updatedUser.getEmail()).size() > 0) throw new UserExistsException();
         return userConverter.userToDto(
                 userRepository.findById(id)
                 .map(user -> {
