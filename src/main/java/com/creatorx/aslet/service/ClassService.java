@@ -36,6 +36,11 @@ public class ClassService {
                 .orElseThrow(() -> new ClassNotFoundException(id)));
     }
 
+    public Class getClassByIdDefault(Long id) {
+        return classRepository.findById(id)
+                .orElseThrow(() -> new ClassNotFoundException(id));
+    }
+
     public ClassDto updateClass(ClassDto updatedClass, Long id) {
         if (classRepository.findByGradeAndLetter(updatedClass.getGrade(), updatedClass.getLetter()).size() > 0) throw new ClassExistsException();
         return classConverter.classToDto(
