@@ -5,7 +5,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'ASLETThemeColor': '#4169e1'
+      }
+    },
   },
   plugins: [],
 }
