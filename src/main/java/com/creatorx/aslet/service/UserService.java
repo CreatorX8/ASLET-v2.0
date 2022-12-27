@@ -3,6 +3,7 @@ package com.creatorx.aslet.service;
 import com.creatorx.aslet.converter.UserConverter;
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
+import com.creatorx.aslet.dto.UserLoginDto;
 import com.creatorx.aslet.exception.UserExistsException;
 import com.creatorx.aslet.exception.UserNotFoundException;
 import com.creatorx.aslet.model.User;
@@ -25,6 +26,12 @@ public class UserService {
         User newUser = userConverter.userCreateDtoToUser(userCreateDto);
         userRepository.save(newUser);
         return userConverter.userToDto(newUser);
+    }
+
+    public UserDto loginUser(UserLoginDto userLoginDto) {
+        User user = userRepository.findByEmailIgnoreCaseAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
+        if (user == null) throw new UserNotFoundException();
+        return userConverter.userToDto(user);
     }
 
     public List<UserDto> getAllUsers() {
