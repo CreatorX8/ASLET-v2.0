@@ -7,8 +7,10 @@ export default function LoginPage() {
     const handleLoginFormSubmit = (event: any) => {
         event.preventDefault();
 
+        //TODO: add email
         const loginData = {
-            name: event.target.name.value,
+            email: event.target.name.value,
+            // name: event.target.name.value,
             password: event.target.password.value
         }
 
