@@ -2,6 +2,7 @@ package com.creatorx.aslet.controller;
 
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
+import com.creatorx.aslet.dto.UserLoginDto;
 import com.creatorx.aslet.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class UserController {
     @PostMapping("/auth/register")
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserCreateDto newUser) {
         return new ResponseEntity<>(userService.createUser(newUser), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<UserDto> loginUser(@RequestBody @Valid UserLoginDto userLoginDto) {
+        return new ResponseEntity<>(userService.loginUser(userLoginDto), HttpStatus.OK);
     }
 
     @GetMapping("/users")
