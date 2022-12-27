@@ -7,16 +7,21 @@ export default function LoginPage() {
     const handleLoginFormSubmit = (event: any) => {
         event.preventDefault();
 
+        //TODO: add email and username
         const registerData = {
             name: event.target.name.value,
             password: event.target.password.value,
-            province: event.target.province.value,
-            cityVillage: event.target.cityVillage.value,
-            schoolName: event.target.schoolName.value
+            // province: event.target.province.value,
+            // cityVillage: event.target.cityVillage.value,
+            // schoolName: event.target.schoolName.value
+            email: "tempemail@example.com",
+            username: "tempusername",
+            role: "user"
         }
         console.log(registerData)
 
-        const endpoint = `${environment.SERVER_API}/auth/register`;
+        // const endpoint = `${environment.SERVER_API}/auth/register`; TEMPORARY
+        const endpoint = `${environment.SERVER_API}/user`;
 
         const options = {
             method: 'POST',
