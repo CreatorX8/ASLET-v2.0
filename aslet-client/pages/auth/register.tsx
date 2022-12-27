@@ -20,8 +20,7 @@ export default function LoginPage() {
         }
         console.log(registerData)
 
-        // const endpoint = `${environment.SERVER_API}/auth/register`; TEMPORARY
-        const endpoint = `${environment.SERVER_API}/user`;
+        const endpoint = `${environment.SERVER_API}/auth/register`;
 
         const options = {
             method: 'POST',
