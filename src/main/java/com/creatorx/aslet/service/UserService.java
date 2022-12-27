@@ -8,6 +8,7 @@ import com.creatorx.aslet.exception.UserExistsException;
 import com.creatorx.aslet.exception.UserNotFoundException;
 import com.creatorx.aslet.model.User;
 import com.creatorx.aslet.repository.UserRepository;
+import com.creatorx.aslet.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class UserService {
     @Autowired
     private UserConverter userConverter;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     public UserDto createUser(UserCreateDto userCreateDto) {
         if (userRepository.findByEmail(userCreateDto.getEmail()).size() > 0) throw new UserExistsException();
         User newUser = userConverter.userCreateDtoToUser(userCreateDto);
@@ -28,10 +32,10 @@ public class UserService {
         return userConverter.userToDto(newUser);
     }
 
-    public UserDto loginUser(UserLoginDto userLoginDto) {
+    public String loginUser(UserLoginDto userLoginDto) {
         User user = userRepository.findByEmailIgnoreCaseAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         if (user == null) throw new UserNotFoundException();
-        return userConverter.userToDto(user);
+        return jwtUtils.generateToken(user);
     }
 
     public List<UserDto> getAllUsers() {
