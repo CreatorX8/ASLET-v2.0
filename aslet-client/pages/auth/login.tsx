@@ -26,7 +26,8 @@ export default function LoginPage() {
 
         fetch(endpoint, options)
             .then((response: Response) => {
-                response.json().then((result: any) => {
+                // returns the jwt token
+                response.text().then((result: any) => {
                     console.log(result);
                     //TODO: Next time on "Ivo is finaly doing something" with special guest: Redux
                 })
