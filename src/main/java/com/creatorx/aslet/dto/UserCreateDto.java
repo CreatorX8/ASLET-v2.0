@@ -17,9 +17,6 @@ public class UserCreateDto {
     @NotEmpty
     @Size(min = 3, max = 60, message = "username must be between 3 and 60 characters long")
     private String username;
-    @NotEmpty
-    @Size(min = 4, max = 8, message = "role must be between 4 and 8 characters long")
-    private String role;
 
     public String getName() {
         return name;
@@ -51,13 +48,5 @@ public class UserCreateDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }
