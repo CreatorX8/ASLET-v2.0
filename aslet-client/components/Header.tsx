@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Haeder() {
+export default function Header() {
     return (
         <>
             <header className="bg-gray-400 w-screen">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Haeder from "../../components/Header";
+import Header from "../../components/Header";
 import { environment } from "../../env/client/eviroment.dev";
 
 export default function LoginPage() {
@@ -34,7 +34,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <Haeder />
+            <Header />
             <main className="w-screen h-fit flex justify-center">
                 <div className="max-w-3xl p-6">
                     <form onSubmit={handleLoginFormSubmit} className="flex flex-col space-y-5">
