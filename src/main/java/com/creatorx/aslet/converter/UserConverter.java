@@ -11,13 +11,13 @@ import java.util.List;
 @Service
 public class UserConverter {
     public UserDto userToDto(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole());
+        return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole(), user.getApproved(), user.getProvince(), user.getCityVillage(), user.getSchoolName());
     }
 
     public List<UserDto> userToDto(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();
         for (User user: users) {
-            userDtos.add(new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole()));
+            userDtos.add(new UserDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole(), user.getApproved(), user.getProvince(), user.getCityVillage(), user.getSchoolName()));
         }
         return userDtos;
     }
@@ -29,6 +29,10 @@ public class UserConverter {
         user.setPassword(userCreateDto.getPassword());
         user.setUsername(userCreateDto.getUsername());
         user.setRole("user");
+        user.setApproved(false);
+        user.setProvince(userCreateDto.getProvince());
+        user.setCityVillage(userCreateDto.getCityVillage());
+        user.setSchoolName(userCreateDto.getSchoolName());
         return user;
     }
 }

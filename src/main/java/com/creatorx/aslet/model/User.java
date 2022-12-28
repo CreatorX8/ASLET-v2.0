@@ -58,6 +58,33 @@ public class User {
             columnDefinition = "varchar(8)"
     )
     private String role;
+    @Column(
+            name = "approved",
+            nullable = false,
+            columnDefinition = "bool"
+    )
+    private Boolean approved;
+    @Column(
+            name = "province",
+            nullable = false,
+            length = 60,
+            columnDefinition = "varchar(60)"
+    )
+    private String province;
+    @Column(
+            name = "cityVillage",
+            nullable = false,
+            length = 60,
+            columnDefinition = "varchar(60)"
+    )
+    private String cityVillage;
+    @Column(
+            name = "schoolName",
+            nullable = false,
+            length = 60,
+            columnDefinition = "varchar(60)"
+    )
+    private String schoolName;
 
     public User() {
     }
@@ -108,5 +135,37 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCityVillage() {
+        return cityVillage;
+    }
+
+    public void setCityVillage(String cityVillage) {
+        this.cityVillage = cityVillage;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 }
