@@ -5,6 +5,7 @@ public class RequestMetadata {
     private String name;
     private String email;
     private String username;
+    private String role;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class RequestMetadata {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

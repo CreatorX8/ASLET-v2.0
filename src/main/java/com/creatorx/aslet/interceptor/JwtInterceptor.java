@@ -32,6 +32,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         requestMetadata.setName(claims.get("name", String.class));
         requestMetadata.setEmail(claims.get("email", String.class));
         requestMetadata.setUsername(claims.getSubject());
+        requestMetadata.setRole(claims.get("role", String.class));
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }
