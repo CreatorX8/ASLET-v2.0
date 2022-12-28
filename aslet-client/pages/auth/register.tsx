@@ -15,8 +15,7 @@ export default function LoginPage() {
             // cityVillage: event.target.cityVillage.value,
             // schoolName: event.target.schoolName.value
             email: "tempemail@example.com",
-            username: "tempusername",
-            role: "user"
+            username: "tempusername"
         }
         console.log(registerData)
 
