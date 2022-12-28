@@ -5,6 +5,7 @@ import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
 import com.creatorx.aslet.dto.UserLoginDto;
 import com.creatorx.aslet.exception.UserExistsException;
+import com.creatorx.aslet.exception.UserNotApprovedException;
 import com.creatorx.aslet.exception.UserNotFoundException;
 import com.creatorx.aslet.model.User;
 import com.creatorx.aslet.repository.UserRepository;
@@ -35,6 +36,7 @@ public class UserService {
     public String loginUser(UserLoginDto userLoginDto) {
         User user = userRepository.findByEmailIgnoreCaseAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         if (user == null) throw new UserNotFoundException();
+        if (!user.getApproved()) throw new UserNotApprovedException();
         return jwtUtils.generateToken(user);
     }
 
