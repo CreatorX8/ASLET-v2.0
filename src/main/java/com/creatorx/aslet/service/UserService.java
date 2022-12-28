@@ -50,6 +50,11 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id)));
     }
 
+    public User getUserByIdDefault(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
     public UserDto updateUser(UserDto updatedUser, Long id) {
         if (userRepository.findByEmail(updatedUser.getEmail()).size() > 0) throw new UserExistsException();
         return userConverter.userToDto(

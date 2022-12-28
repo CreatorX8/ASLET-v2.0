@@ -5,6 +5,7 @@ import com.creatorx.aslet.converter.ClassGroupConverter;
 import com.creatorx.aslet.dto.ClassCreateDto;
 import com.creatorx.aslet.dto.ClassDto;
 import com.creatorx.aslet.dto.ClassGroupCreateDto;
+import com.creatorx.aslet.dto.RequestMetadata;
 import com.creatorx.aslet.exception.ClassExistsException;
 import com.creatorx.aslet.exception.ClassNotFoundException;
 import com.creatorx.aslet.model.Class;
@@ -27,9 +28,16 @@ public class ClassService {
     @Autowired
     private ClassConverter classConverter;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RequestMetadata requestMetadata;
+
     public ClassDto createClass(ClassCreateDto classCreateDto) {
         if (classRepository.findByGradeAndLetter(classCreateDto.getGrade(), classCreateDto.getLetter()).size() > 0) throw new ClassExistsException();
         Class newClass = classConverter.classCreateDtoToClass(classCreateDto);
+        newClass.setOwner(userService.getUserByIdDefault(requestMetadata.getId()));
         classRepository.save(newClass);
         ClassGroup classGroup = new ClassGroup();
         classGroup.setName(newClass.getClassName());
