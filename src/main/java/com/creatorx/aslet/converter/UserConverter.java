@@ -2,6 +2,7 @@ package com.creatorx.aslet.converter;
 
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
+import com.creatorx.aslet.dto.UserLoggedDto;
 import com.creatorx.aslet.model.User;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,9 @@ public class UserConverter {
         user.setCityVillage(userCreateDto.getCityVillage());
         user.setSchoolName(userCreateDto.getSchoolName());
         return user;
+    }
+
+    public UserLoggedDto userToUserLoggedDto(User user, String token) {
+        return new UserLoggedDto(user.getId(), user.getName(), user.getEmail(), user.getUsername(), user.getRole(), user.getProvince(), user.getCityVillage(), user.getSchoolName(), token);
     }
 }

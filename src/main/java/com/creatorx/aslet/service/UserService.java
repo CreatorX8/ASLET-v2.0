@@ -3,6 +3,7 @@ package com.creatorx.aslet.service;
 import com.creatorx.aslet.converter.UserConverter;
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
+import com.creatorx.aslet.dto.UserLoggedDto;
 import com.creatorx.aslet.dto.UserLoginDto;
 import com.creatorx.aslet.exception.UserExistsException;
 import com.creatorx.aslet.exception.UserNotApprovedException;
@@ -33,11 +34,11 @@ public class UserService {
         return userConverter.userToDto(newUser);
     }
 
-    public String loginUser(UserLoginDto userLoginDto) {
+    public UserLoggedDto loginUser(UserLoginDto userLoginDto) {
         User user = userRepository.findByEmailIgnoreCaseAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         if (user == null) throw new UserNotFoundException();
         if (!user.getApproved()) throw new UserNotApprovedException();
-        return jwtUtils.generateToken(user);
+        return userConverter.userToUserLoggedDto(user, jwtUtils.generateToken(user));
     }
 
     public List<UserDto> getAllUsers() {

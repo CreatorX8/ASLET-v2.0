@@ -2,6 +2,7 @@ package com.creatorx.aslet.controller;
 
 import com.creatorx.aslet.dto.UserCreateDto;
 import com.creatorx.aslet.dto.UserDto;
+import com.creatorx.aslet.dto.UserLoggedDto;
 import com.creatorx.aslet.dto.UserLoginDto;
 import com.creatorx.aslet.service.UserService;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<String> loginUser(@RequestBody @Valid UserLoginDto userLoginDto) {
+    public ResponseEntity<UserLoggedDto> loginUser(@RequestBody @Valid UserLoginDto userLoginDto) {
         return new ResponseEntity<>(userService.loginUser(userLoginDto), HttpStatus.OK);
     }
 
