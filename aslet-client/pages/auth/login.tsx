@@ -1,18 +1,37 @@
 import Link from "next/link";
 import Header from "../../components/Header";
-import { environment } from "../../env/client/eviroment.dev";
+import { environment } from "../../src/env/eviroment.dev";
+import { ILoginData } from "../../src/models/login.model";
 
-export default function LoginPage() {
+export default function LoginPage(): JSX.Element {
 
-    const handleLoginFormSubmit = (event: any) => {
+    const handleLoginFormSubmit = (event: any): void => {
         event.preventDefault();
 
-        //TODO: add email
-        const loginData = {
+        const loginData: ILoginData = {
             email: event.target.name.value,
             // name: event.target.name.value,
             password: event.target.password.value
         }
+
+        if (checkLoginData(loginData)) {
+            loginRequest(loginData);
+            return;
+        }
+
+        //Change UI
+
+    }
+
+    const checkLoginData = (loginData: ILoginData): boolean => {
+
+        //TODO: Email checker
+        //TODO: Password Checker
+
+        return true;
+    }
+
+    const loginRequest = (loginData: ILoginData): true | Error => {
 
         const endpoint = `${environment.SERVER_API}/auth/login`;
 
@@ -26,13 +45,16 @@ export default function LoginPage() {
 
         fetch(endpoint, options)
             .then((response: Response) => {
-                // returns the jwt token
-                response.text().then((result: any) => {
+                response.json().then((result: any) => {
                     console.log(result);
                     //TODO: Next time on "Ivo is finaly doing something" with special guest: Redux
                 })
             })
+            .catch((error: any) => {
+                console.error(error);
+            })
 
+        return true;
     }
 
     return (
@@ -48,10 +70,9 @@ export default function LoginPage() {
                         <input className="bg-ASLETThemeColor rounded-lg p-1"
                             type="submit" value="Вход" />
                     </form>
-                <p>Нямаш профил? <Link href="/auth/register">Регистрирай се</Link></p>
+                    <p>Нямаш профил? <Link href="/auth/register">Регистрирай се</Link></p>
                 </div>
             </main>
-
         </>
     )
 }

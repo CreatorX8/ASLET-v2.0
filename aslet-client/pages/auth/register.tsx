@@ -1,25 +1,45 @@
 import Link from "next/link";
 import Header from "../../components/Header";
-import { environment } from "../../env/client/eviroment.dev";
+import { environment } from "../../src/env/eviroment.dev";
+import { IRegisterData } from "../../src/models/register.model";
 
 export default function LoginPage() {
 
     const handleLoginFormSubmit = (event: any) => {
         event.preventDefault();
 
-        //TODO: add email and username
-        const registerData = {
+        //TODO: add username
+        const registerData: IRegisterData = {
             name: event.target.name.value,
+            email: event.target.email.value,
             password: event.target.password.value,
             province: event.target.province.value,
             cityVillage: event.target.cityVillage.value,
             schoolName: event.target.schoolName.value,
-            email: "tempemail@example.com",
-            username: "tempusername"
-        }
-        console.log(registerData)
 
-        const endpoint = `${environment.SERVER_API}/auth/register`;
+            //username: "tempusername"
+        }
+
+        if (checkRegisterData(registerData)) {
+            registerRequest(registerData);
+            return;
+        }
+
+        //Change UI
+
+    }
+
+    const checkRegisterData = (registerData: IRegisterData): boolean => {
+
+        //TODO: Email checker
+        //TODO: Password Checker
+
+        return true;
+    }
+
+    const registerRequest = (registerData: IRegisterData): true | Error => {
+
+        const endpoint = `${environment.SERVER_API}/auth/login`;
 
         const options = {
             method: 'POST',
@@ -36,8 +56,14 @@ export default function LoginPage() {
                     //TODO: Next time on "Ivo is finaly doing something" with special guest: Redux
                 })
             })
+            .catch((error: any) => {
+                console.error(error);
+            })
 
+        return true;
     }
+
+    //TODO: Make province a combobox
 
     return (
         <>
@@ -47,6 +73,8 @@ export default function LoginPage() {
                     <form onSubmit={handleLoginFormSubmit} className="flex flex-col space-y-5">
                         <input className="border-ASLETThemeColor border-2 rounded-lg p-1"
                             type="text" placeholder="Име" id="nameInput" name="name" autoComplete="name" required />
+                        <input className="border-ASLETThemeColor border-2 rounded-lg p-1"
+                            type="email" placeholder="E-mail" id="emailInput" name="email" autoComplete="email" required />
                         <input className="border-ASLETThemeColor border-2 rounded-lg p-1"
                             type="password" placeholder="Парола" id="passwordInput" name="password" autoComplete="password" required />
                         <hr />
