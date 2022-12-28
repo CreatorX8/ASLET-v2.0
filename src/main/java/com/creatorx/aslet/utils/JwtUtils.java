@@ -29,9 +29,9 @@ public class JwtUtils {
                 .compact();
     }
 
-    public void validateToken(String token) {
+    public Claims validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             throw new NotAuthorizedException();
         }
