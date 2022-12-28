@@ -11,9 +11,9 @@ export default function LoginPage() {
         const registerData = {
             name: event.target.name.value,
             password: event.target.password.value,
-            // province: event.target.province.value,
-            // cityVillage: event.target.cityVillage.value,
-            // schoolName: event.target.schoolName.value
+            province: event.target.province.value,
+            cityVillage: event.target.cityVillage.value,
+            schoolName: event.target.schoolName.value,
             email: "tempemail@example.com",
             username: "tempusername"
         }
