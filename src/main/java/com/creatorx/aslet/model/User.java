@@ -2,6 +2,8 @@ package com.creatorx.aslet.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(
         name = "users",
@@ -85,6 +87,8 @@ public class User {
             columnDefinition = "varchar(60)"
     )
     private String schoolName;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Collection<Class> classes;
 
     public User() {
     }
@@ -167,5 +171,13 @@ public class User {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public Collection<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Collection<Class> classes) {
+        this.classes = classes;
     }
 }

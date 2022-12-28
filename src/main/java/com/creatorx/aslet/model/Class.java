@@ -39,6 +39,9 @@ public class Class {
     private char letter;
     @OneToMany(mappedBy = "studentsClass", cascade = CascadeType.ALL)
     private Collection<ClassGroup> classGroups;
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "classes_users_fk", referencedColumnName = "id")
+    private User owner;
 
     public Class() {
     }
@@ -69,5 +72,21 @@ public class Class {
 
     public String getClassName() {
         return "" + grade + letter;
+    }
+
+    public Collection<ClassGroup> getClassGroups() {
+        return classGroups;
+    }
+
+    public void setClassGroups(Collection<ClassGroup> classGroups) {
+        this.classGroups = classGroups;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
