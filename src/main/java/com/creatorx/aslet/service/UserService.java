@@ -8,6 +8,7 @@ import com.creatorx.aslet.exception.UserNotApprovedException;
 import com.creatorx.aslet.exception.UserNotFoundException;
 import com.creatorx.aslet.model.User;
 import com.creatorx.aslet.repository.UserRepository;
+import com.creatorx.aslet.utils.AccessUtils;
 import com.creatorx.aslet.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UserService {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private RequestMetadata requestMetadata;
+    private AccessUtils accessUtils;
 
     public UserDto createUser(UserCreateDto userCreateDto) {
         if (userRepository.findByEmail(userCreateDto.getEmail()).size() > 0) throw new UserExistsException();
@@ -43,14 +44,12 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        String role = requestMetadata.getRole();
-        if (role == null || !role.equals("admin")) throw new NotAuthorizedException();
+        if (!accessUtils.isAdmin()) throw new NotAuthorizedException();
         return userConverter.userToDto(userRepository.findAll());
     }
 
     public UserDto getUserById(Long id) {
-        String role = requestMetadata.getRole();
-        if (role == null || !role.equals("admin")) throw new NotAuthorizedException();
+        if (!accessUtils.isAdmin()) throw new NotAuthorizedException();
         return userConverter.userToDto(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id)));
     }
@@ -61,8 +60,7 @@ public class UserService {
     }
 
     public UserDto updateUser(UserDto updatedUser, Long id) {
-        String role = requestMetadata.getRole();
-        if (role == null || !role.equals("admin")) throw new NotAuthorizedException();
+        if (!accessUtils.isAdmin()) throw new NotAuthorizedException();
         if (userRepository.findByEmail(updatedUser.getEmail()).size() > 0) throw new UserExistsException();
         return userConverter.userToDto(
                 userRepository.findById(id)
@@ -76,8 +74,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        String role = requestMetadata.getRole();
-        if (role == null || !role.equals("admin")) throw new NotAuthorizedException();
+        if (!accessUtils.isAdmin()) throw new NotAuthorizedException();
         if (!userRepository.existsById(id)) {
             throw new UserNotFoundException(id);
         }
