@@ -1,6 +1,7 @@
 package com.creatorx.aslet.service;
 
 import com.creatorx.aslet.converter.TeacherConverter;
+import com.creatorx.aslet.dto.RequestMetadata;
 import com.creatorx.aslet.dto.TeacherCreateDto;
 import com.creatorx.aslet.dto.TeacherDto;
 import com.creatorx.aslet.exception.TeacherNotFoundException;
@@ -19,8 +20,15 @@ public class TeacherService {
     @Autowired
     private TeacherConverter teacherConverter;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RequestMetadata requestMetadata;
+
     public TeacherDto createTeacher(TeacherCreateDto teacherCreateDto) {
         Teacher newTeacher = teacherConverter.teacherCreateDtoToTeacher(teacherCreateDto);
+        newTeacher.setOwner(userService.getUserByIdDefault(requestMetadata.getId()));
         teacherRepository.save(newTeacher);
         return teacherConverter.teacherToDto(newTeacher);
     }
