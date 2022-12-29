@@ -5,6 +5,7 @@ import com.creatorx.aslet.dto.SubjectDto;
 import com.creatorx.aslet.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,6 @@ public class SubjectController {
     @DeleteMapping("/subject/{id}")
     public ResponseEntity deleteSubject(@PathVariable Long id) {
         subjectService.deleteSubject(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
