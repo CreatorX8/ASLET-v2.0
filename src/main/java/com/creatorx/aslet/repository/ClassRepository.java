@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ClassRepository extends JpaRepository<Class, Long> {
     List<Class> findByGradeAndLetter(int grade, char letter);
+    List<Class> findAllByOwner_Id(Long id);
 }
