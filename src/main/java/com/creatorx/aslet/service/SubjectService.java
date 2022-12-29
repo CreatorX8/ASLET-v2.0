@@ -64,7 +64,7 @@ public class SubjectService {
         if (!subjectRepository.existsById(id)) {
             throw new SubjectNotFoundException(id);
         }
-        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(subjectRepository.findById(id).get().getOwner().getId())) throw new NotBelongsToUserException();
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(getSubjectByIdDefault(id).getOwner().getId())) throw new NotBelongsToUserException();
         subjectRepository.deleteById(id);
     }
 }
