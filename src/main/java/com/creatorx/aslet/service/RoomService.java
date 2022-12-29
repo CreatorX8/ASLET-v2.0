@@ -66,5 +66,6 @@ public class RoomService {
             throw new RoomNotFoundException(id);
         }
         if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(getRoomByIdDefault(id).getOwner().getId())) throw new NotBelongsToUserException();
+        roomRepository.deleteById(id);
     }
 }
