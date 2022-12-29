@@ -91,6 +91,8 @@ public class User {
     private Collection<Class> classes;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private Collection<Teacher> teachers;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Collection<Subject> subjects;
 
     public User() {
     }
@@ -189,5 +191,13 @@ public class User {
 
     public void setTeachers(Collection<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public Collection<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Collection<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

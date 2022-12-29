@@ -29,6 +29,9 @@ public class Subject {
         columnDefinition = "varchar(30)"
     )
     private String name;
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "subjects_users_fk", referencedColumnName = "id")
+    private User owner;
 
     public Subject() {
     }
@@ -47,5 +50,13 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
