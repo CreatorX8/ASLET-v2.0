@@ -47,6 +47,7 @@ public class ClassService {
     }
 
     public List<ClassDto> getAllClasses() {
+        if (accessUtils.isAdmin()) return classConverter.classToDto(classRepository.findAll());
         return classConverter.classToDto(classRepository.findAllByOwner_Id(accessUtils.getUserId()));
     }
 
