@@ -41,6 +41,7 @@ public class ClassGroupService {
     }
 
     public List<ClassGroupDto> getAllClassGroups() {
+        if (accessUtils.isAdmin()) return classGroupConverter.classGroupToDto(classGroupRepository.findAll());
         return classGroupConverter.classGroupToDto(classGroupRepository.findAllByStudentsClass_Owner_Id(accessUtils.getUserId()));
     }
 
