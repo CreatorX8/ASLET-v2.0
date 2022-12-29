@@ -1,6 +1,7 @@
 package com.creatorx.aslet.service;
 
 import com.creatorx.aslet.converter.SubjectConverter;
+import com.creatorx.aslet.dto.RequestMetadata;
 import com.creatorx.aslet.dto.SubjectCreateDto;
 import com.creatorx.aslet.dto.SubjectDto;
 import com.creatorx.aslet.exception.SubjectNotFoundException;
@@ -19,8 +20,15 @@ public class SubjectService {
     @Autowired
     private SubjectConverter subjectConverter;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RequestMetadata requestMetadata;
+
     public SubjectDto createSubject(SubjectCreateDto subjectCreateDto) {
         Subject newSubject = subjectConverter.subjectCreateDtoToSubject(subjectCreateDto);
+        newSubject.setOwner(userService.getUserByIdDefault(requestMetadata.getId()));
         subjectRepository.save(newSubject);
         return subjectConverter.subjectToDto(newSubject);
     }
