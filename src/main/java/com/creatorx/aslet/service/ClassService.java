@@ -59,8 +59,10 @@ public class ClassService {
     }
 
     public Class getClassByIdDefault(Long id) {
-        return classRepository.findById(id)
+        Class studentsClass = classRepository.findById(id)
                 .orElseThrow(() -> new ClassNotFoundException(id));
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(studentsClass.getOwner().getId())) throw new NotBelongsToUserException();
+        return studentsClass;
     }
 
     public ClassDto updateClass(ClassDto updatedClass, Long id) {
