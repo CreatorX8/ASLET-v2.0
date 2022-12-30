@@ -2,6 +2,8 @@ package com.creatorx.aslet.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(
         name = "class_groups"
@@ -38,6 +40,8 @@ public class ClassGroup {
             columnDefinition = "int"
     )
     private int peopleCount;
+    @OneToMany(mappedBy = "classGroup", cascade = CascadeType.ALL)
+    private Collection<Hour> hours;
 
     public ClassGroup() {
     }
@@ -72,5 +76,13 @@ public class ClassGroup {
 
     public void setPeopleCount(int peopleCount) {
         this.peopleCount = peopleCount;
+    }
+
+    public Collection<Hour> getHours() {
+        return hours;
+    }
+
+    public void setHours(Collection<Hour> hours) {
+        this.hours = hours;
     }
 }
