@@ -47,8 +47,10 @@ public class TeacherService {
     }
 
     public Teacher getTeacherByIdDefault(Long id) {
-        return teacherRepository.findById(id)
+        Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundException(id));
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(teacher.getOwner().getId())) throw new NotBelongsToUserException();
+        return teacher;
     }
 
     public TeacherDto updateTeacher(TeacherDto updatedTeacher, Long id) {
