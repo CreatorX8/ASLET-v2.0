@@ -56,8 +56,10 @@ public class HourService {
     }
 
     public Hour getHourByIdDefault(Long id) {
-        return hourRepository.findById(id)
+        Hour hour = hourRepository.findById(id)
                 .orElseThrow(() -> new HourNotFoundException(id));
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(hour.getOwner().getId())) throw new NotBelongsToUserException();
+        return hour;
     }
 
     public HourDto updateHour(HourDto updatedHour, Long id) {
