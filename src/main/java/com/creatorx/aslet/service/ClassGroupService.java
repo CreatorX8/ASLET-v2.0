@@ -53,8 +53,10 @@ public class ClassGroupService {
     }
 
     public ClassGroup getClassGroupByIdDefault(Long id) {
-        return classGroupRepository.findById(id)
+        ClassGroup classGroup = classGroupRepository.findById(id)
                 .orElseThrow(() -> new ClassGroupNotFoundException(id));
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(classGroup.getStudentsClass().getOwner().getId())) throw new NotBelongsToUserException();
+        return classGroup;
     }
 
     public ClassGroupDto updateClassGroup(ClassGroupDto updatedClassGroup, Long id) {
