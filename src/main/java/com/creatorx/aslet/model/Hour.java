@@ -31,14 +31,14 @@ public class Hour {
     @ManyToOne(targetEntity = Subject.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "hours_subjects_fk", referencedColumnName = "id")
     private Subject subject;
-    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "hours_users_fk", referencedColumnName = "id")
-    private User owner;
     @Column(
         name = "hoursAWeek",
         nullable = false
     )
     private Integer hoursAWeek;
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "hours_users_fk", referencedColumnName = "id")
+    private User owner;
 
     public Hour() {
     }
@@ -75,19 +75,19 @@ public class Hour {
         this.subject = subject;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
     public Integer getHoursAWeek() {
         return hoursAWeek;
     }
 
     public void setHoursAWeek(Integer hoursAWeek) {
         this.hoursAWeek = hoursAWeek;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }
