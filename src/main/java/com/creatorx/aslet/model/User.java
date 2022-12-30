@@ -95,6 +95,8 @@ public class User {
     private Collection<Subject> subjects;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private Collection<Room> rooms;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Collection<Hour> hours;
 
     public User() {
     }
@@ -209,5 +211,13 @@ public class User {
 
     public void setRooms(Collection<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    public Collection<Hour> getHours() {
+        return hours;
+    }
+
+    public void setHours(Collection<Hour> hours) {
+        this.hours = hours;
     }
 }
