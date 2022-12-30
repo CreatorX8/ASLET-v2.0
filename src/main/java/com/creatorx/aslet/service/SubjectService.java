@@ -47,8 +47,10 @@ public class SubjectService {
     }
 
     public Subject getSubjectByIdDefault(Long id) {
-        return subjectRepository.findById(id)
+        Subject subject = subjectRepository.findById(id)
                 .orElseThrow(() -> new SubjectNotFoundException(id));
+        if (!accessUtils.isAdmin() && !accessUtils.doesBelongToUser(subject.getOwner().getId())) throw new NotBelongsToUserException();
+        return subject;
     }
 
     public SubjectDto updateSubject(SubjectDto updatedSubject, Long id) {
