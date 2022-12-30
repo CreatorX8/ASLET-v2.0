@@ -2,6 +2,8 @@ package com.creatorx.aslet.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(
     name = "subjects"
@@ -32,6 +34,8 @@ public class Subject {
     @ManyToOne(targetEntity = User.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "subjects_users_fk", referencedColumnName = "id")
     private User owner;
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private Collection<Hour> hours;
 
     public Subject() {
     }
@@ -58,5 +62,13 @@ public class Subject {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Collection<Hour> getHours() {
+        return hours;
+    }
+
+    public void setHours(Collection<Hour> hours) {
+        this.hours = hours;
     }
 }
