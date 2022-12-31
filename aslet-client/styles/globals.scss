@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  *{
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components{
+  .authInput{
+    @apply outline-ASLETThemeColor bg-[#EBEBEB] outline outline-2 outline-offset-0 rounded-lg p-1 duration-75;
+  }
+
+  .foucusedAuthInput{
+    @apply outline-offset-2 outline-4;
+  }
+
+  .errorAuthInput{
+    @apply outline-errorColor;
+  }
+}
