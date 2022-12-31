@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Header from "../../components/Header";
-import { environment } from "../../src/env/eviroment.dev";
 import { ILoginData } from "../../src/models/login.model";
 
-export default function LoginPage(): JSX.Element {
+export default function LoginPage(props: {server: string}): JSX.Element {
 
     const handleLoginFormSubmit = (event: any): void => {
         event.preventDefault();
@@ -33,7 +32,7 @@ export default function LoginPage(): JSX.Element {
 
     const loginRequest = (loginData: ILoginData): true | Error => {
 
-        const endpoint = `${environment.SERVER_API}/auth/login`;
+        const endpoint = `${props.server}/auth/login`;
 
         const options = {
             method: 'POST',
@@ -75,4 +74,12 @@ export default function LoginPage(): JSX.Element {
             </main>
         </>
     )
+}
+
+export function getStaticProps(){
+    return{
+        props: {
+            server: process.env.SERVER_URL
+        }
+    }
 }
