@@ -62,9 +62,9 @@ export default function LoginPage(props: {server: string}): JSX.Element {
             <main className="w-screen h-fit flex justify-center">
                 <div className="max-w-3xl p-6">
                     <form onSubmit={handleLoginFormSubmit} className="flex flex-col space-y-5">
-                        <input className="border-ASLETThemeColor border-2 rounded-lg p-1"
+                        <input className="authInput focus:foucusedAuthInput"
                             type="text" placeholder="Име" id="nameInput" name="name" autoComplete="name" required />
-                        <input className="border-ASLETThemeColor border-2 rounded-lg p-1"
+                        <input className="authInput focus:foucusedAuthInput"
                             type="password" placeholder="Парола" id="passwordInput" name="password" autoComplete="password" required />
                         <input className="bg-ASLETThemeColor rounded-lg p-1"
                             type="submit" value="Вход" />
