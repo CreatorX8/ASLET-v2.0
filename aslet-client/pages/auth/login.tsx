@@ -9,7 +9,6 @@ export default function LoginPage(props: {server: string}): JSX.Element {
 
         const loginData: ILoginData = {
             email: event.target.name.value,
-            // name: event.target.name.value,
             password: event.target.password.value
         }
 

@@ -7,16 +7,14 @@ export default function LoginPage(props: {server: string}) {
     const handleLoginFormSubmit = (event: any) => {
         event.preventDefault();
 
-        //TODO: add username
         const registerData: IRegisterData = {
             name: event.target.name.value,
+            username: event.target.username.value,
             email: event.target.email.value,
             password: event.target.password.value,
             province: event.target.province.value,
             cityVillage: event.target.cityVillage.value,
             schoolName: event.target.schoolName.value,
-
-            //username: "tempusername"
         }
 
         if (checkRegisterData(registerData)) {
